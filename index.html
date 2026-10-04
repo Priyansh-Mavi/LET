@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In Property Point | Premium Real Estate</title>
+    
+    <link rel="icon" href="LOGO.jpeg" type="image/jpeg">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Aesthetic Base & Variables --- */
+        :root {
+            --primary: #FF7A1F; 
+            --bg-light: #FAFAFA; 
+            --bg-card: #FFFFFF;
+            --text-dark: #2C2C2C;
+            --text-gray: #6B6B6B;
+            --border-color: rgba(0,0,0,0.05);
+            --nav-bg: rgba(250, 250, 250, 0.9);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- Dark Mode Variables --- */
+        body.dark-mode {
+            --bg-light: #121212;
+            --bg-card: #1E1E1E;
+            --text-dark: #F5F5F5;
+            --text-gray: #A0A0A0;
+            --border-color: rgba(255,255,255,0.1);
+            --nav-bg: rgba(18, 18, 18, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Smooth Scroll Animations --- */
+        html { scroll-behavior: smooth; }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3, h4 { color: var(--text-dark); font-weight: 600; transition: color 0.4s ease; }
+        .text-orange { color: var(--primary); }
+        p { line-height: 1.8; color: var(--text-gray); font-weight: 300; transition: color 0.4s ease; }
+
+        /* --- Navbar --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.4s ease, border-color 0.4s ease;
+        }
+        
+        .header-main {
+            padding: 10px 5%; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .welcome-line {
+            background: var(--primary);
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            padding: 6px 0;
+            text-transform: uppercase;
+            width: 100%;
+        }
+
+        /* --- Logo Zoom & Left Alignment Styles --- */
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+        .logo-wrapper {
+            width: 200px; 
+            height: 75px;
+            overflow: hidden;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background: transparent; 
+        }
+        .site-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: left center;
+            transform: scale(1);
+            transform-origin: left center;
+            transition: transform 0.3s ease;
+        }
+        .logo-link:hover .site-logo {
+            transform: scale(1.1); 
+        }
+        .logo-text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .main-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.1;
+            color: var(--text-dark);
+            transition: color 0.4s ease;
+        }
+        .punchline {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-gray);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.4s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            transition: transform 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 40px;
+            transition: var(--transition);
+            border: 1px solid var(--primary);
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .btn:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 122, 31, 0.15);
+        }
+
+        /* --- Aesthetic 3-Sided Frame (Arch) --- */
+        .frame-3-side {
+            position: relative;
+            padding: 15px 15px 0 15px;
+            border-top: 2px solid var(--primary);
+            border-left: 2px solid var(--primary);
+            border-right: 2px solid var(--primary);
+            border-bottom: none;
+            border-radius: 200px 200px 0 0;
+            display: inline-block;
+        }
+        .frame-3-side img {
+            border-radius: 185px 185px 0 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Floating Social Icons (Colored Versions) --- */
+        .floating-socials {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border-radius: 0 10px 10px 0;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            border-left: none;
+        }
+        .social-icon:hover {
+            width: 65px;
+        }
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Specific Brand Colors */
+        .social-icon[aria-label="WhatsApp"] { color: #25D366; }
+        .social-icon[aria-label="WhatsApp"]:hover { background: #25D366; color: #fff; }
+
+        .social-icon[aria-label="Instagram"] { color: #E4405F; }
+        .social-icon[aria-label="Instagram"]:hover { background: #E4405F; color: #fff; }
+
+        .social-icon[aria-label="YouTube"] { color: #FF0000; }
+        .social-icon[aria-label="YouTube"]:hover { background: #FF0000; color: #fff; }
+
+        .social-icon[aria-label="Facebook"] { color: #1877F2; }
+        .social-icon[aria-label="Facebook"]:hover { background: #1877F2; color: #fff; }
+
+        .whatsapp-wrapper {
+            position: relative;
+        }
+        .whatsapp-options {
+            position: absolute;
+            left: 100%;
+            top: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0 10px 10px 0;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .whatsapp-wrapper:hover .whatsapp-options {
+            opacity: 1;
+            visibility: visible;
+        }
+        .whatsapp-options a {
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s ease;
+        }
+        .whatsapp-options a:last-child {
+            border-bottom: none;
+        }
+        .whatsapp-options a:hover {
+            background: var(--bg-light);
+            color: #25D366;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 140px 5% 40px; 
+            gap: 50px;
+            background: radial-gradient(circle at top right, rgba(255,122,31,0.05) 0%, transparent 40%);
+        }
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            animation: fadeRight 1s ease-out forwards;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(255, 122, 31, 0.1);
+            color: var(--primary);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            animation: fadeLeft 1s ease-out forwards;
+        }
+        .hero-image .frame-3-side {
+            width: 100%;
+            max-width: 450px;
+            height: 600px;
+        }
+
+        /* --- Sections --- */
+        section { padding: 100px 5%; }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* --- About Us --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-grid .frame-3-side {
+            max-width: 400px;
+            height: 500px;
+            margin: auto;
+        }
+
+        /* --- How We Work / Process --- */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .process-card {
+            background: var(--bg-card);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .process-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            border-color: rgba(255, 122, 31, 0.2);
+        }
+        .process-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .process-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        .process-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        .process-list li {
+            margin-bottom: 12px;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 25px;
+        }
+        .process-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* --- Areas We Deal In --- */
+        .area-row {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-bottom: 80px;
+        }
+        .area-row.reverse {
+            flex-direction: row-reverse;
+        }
+        .area-text {
+            flex: 1;
+        }
+        .area-text h3 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .area-image {
+            flex: 1;
+        }
+        .area-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        /* --- Featured Properties --- */
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .property-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .property-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .property-details {
+            padding: 25px;
+        }
+        .property-price {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .property-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .property-meta {
+            display: flex;
+            gap: 15px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        /* --- Expertise / Properties We Deal In --- */
+        .expertise-section {
+            background-color: var(--bg-light);
+        }
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+        }
+        .expertise-card {
+            background: var(--bg-card);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .expertise-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(255, 122, 31, 0.08);
+            border-color: rgba(255, 122, 31, 0.2);
+        }
+        .expertise-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .expertise-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .expertise-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* --- Continuous Running Testimonials --- */
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--bg-card);
+            overflow: hidden;
+        }
+        .testimonials .section-header {
+            padding: 0 5%;
+        }
+        .testimonial-container {
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            padding: 20px 0;
+        }
+        .testimonial-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 30s linear infinite;
+        }
+        .testimonial-track:hover {
+            animation-play-state: paused;
+        }
+        .test-card {
+            width: 350px;
+            margin: 0 20px;
+            background: var(--bg-light);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        .test-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+        }
+        .avatar-frame {
+            width: 90px;
+            height: 100px;
+            margin: 0 auto 20px;
+            padding: 4px 4px 0 4px;
+            border-top: 1.5px solid var(--primary);
+            border-left: 1.5px solid var(--primary);
+            border-right: 1.5px solid var(--primary);
+            border-bottom: none;
+            border-radius: 60px 60px 0 0;
+            display: inline-block;
+        }
+        .avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 56px 56px 0 0;
+            display: block;
+        }
+        .test-card p {
+            font-size: 0.95rem;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .test-card h4 {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .test-card small {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+
+        /* --- Contact Form & Location --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            background: var(--bg-card);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
+        .contact-info h3, .contact-form h3 { margin-bottom: 30px; font-size: 1.5rem; }
+        .info-item {
+            margin-bottom: 25px;
+        }
+        .info-item span {
+            display: block;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .info-item a, .info-item p {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+        }
+        textarea.form-control {
+            resize: none;
+            height: 120px;
+        }
+
+        .map-box {
+            width: 100%;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 50px;
+            border: 1px solid var(--border-color);
+        }
+        .map-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- Footer --- */
+        .main-content {
+            flex: 1;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+        }
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            transition: color 0.4s ease;
+        }
+        .footer-service-area {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 160px; }
+            .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
+            .area-row, .area-row.reverse { flex-direction: column; text-align: center; gap: 30px; }
+            .hero-image .frame-3-side { height: 400px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-socials">
+        <div class="whatsapp-wrapper">
+            <a href="javascript:void(0)" class="social-icon" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.996 2.001a9.962 9.962 0 0 0-8.474 15.228l-1.521 5.556 5.679-1.494a9.96 9.96 0 1 0 4.316-19.29zM12 19.957a7.925 7.925 0 0 1-4.04-1.111l-.29-.172-3.003.79.799-2.927-.189-.3A7.944 7.944 0 1 1 12 19.957zm4.27-5.836c-.234-.117-1.385-.684-1.6-.763-.214-.078-.37-.117-.525.117-.156.234-.604.764-.741.921-.137.157-.274.176-.508.059-.234-.117-.988-.364-1.884-1.121-.698-.588-1.168-1.314-1.305-1.549-.137-.234-.015-.361.102-.478.105-.105.234-.273.351-.41.117-.136.156-.234.234-.391.078-.156.039-.292-.02-.409-.059-.117-.525-1.267-.719-1.736-.188-.458-.38-.396-.525-.403-.137-.007-.293-.007-.449-.007s-.409.059-.624.293c-.215.234-.819.8-1.026 1.488-.206.688.31 1.956.883 2.715.572.76 1.838 2.802 4.453 3.931 2.615 1.129 2.615.753 3.083.714.468-.039 1.485-.606 1.696-1.191.211-.585.211-1.085.148-1.191-.063-.106-.219-.165-.453-.282z"/>
+                </svg>
+            </a>
+            <div class="whatsapp-options">
+                <a href="https://wa.me/919311911740" target="_blank">HelpDesk</a>
+                <a href="https://wa.me/919899472555" target="_blank">Sales</a>
+            </div>
+        </div>
+
+        <a href="https://www.instagram.com/in_property_point" target="_blank" class="social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+        </a>
+
+        <a href="http://www.youtube.com/@inpropertypoint" target="_blank" class="social-icon" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.582 6.186c-.23-.86-.908-1.538-1.768-1.768C18.254 4 12 4 12 4s-6.254 0-7.814.418c-.86.23-1.538.908-1.768 1.768C2 7.746 2 12 2 12s0 4.254.418 5.814c.23.86.908 1.538 1.768 1.768C7.746 20 12 20 12 20s6.254 0 7.814-.418c.86-.23 1.538-.908 1.768-1.768C22 16.254 22 12 22 12s0-4.254-.418-5.814zM10 15.464V8.536L16 12l-6 3.464z"/>
+            </svg>
+        </a>
+
+        <a href="#" target="_blank" class="social-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+            </svg>
+        </a>
+    </div>
+
+    <header>
+        <div class="header-main">
+            <a href="https://inpropertypoint.com" class="logo-link">
+                <div class="logo-wrapper">
+                    <img src="SLCROPED.PNG" alt="In Property Point Logo" class="site-logo">
+                </div>
+                <div class="logo-text-container">
+                    <span class="main-title"><span class="text-orange">IN</span> PROPERTY POINT</span>
+                    <span class="punchline">Where Property Meets Trust</span>
+                </div>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#areas">Areas</a>
+                <a href="#process">Process</a>
+                <a href="#expertise">Services</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">🌙</button>
+                <a href="mailto:contact@inpropertypoint.com" class="btn">Connect With Us</a>
+            </div>
+        </div>
+        <div class="welcome-line">
+            IN PROPERTY POINT WELCOMES YOU
+        </div>
+    </header>
+
+    <div class="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">✨ We Are Officially Live</div>
+                <h1>Elevate Your <span class="text-orange">Lifestyle</span></h1>
+                <p>Welcome to In Property Point. The wait is over. Discover a curated selection of premium real estate designed for modern living and thriving businesses.</p>
+                <a href="#featured" class="btn">Explore Properties</a>
+            </div>
+            <div class="hero-image">
+                <div class="frame-3-side">
+                    <img src="prashant-jb_7u6dHmpo-unsplash.jpg" alt="Aesthetic Modern Home">
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="reveal">
+            <div class="about-grid">
+                <div style="text-align: center;">
+                    <div class="frame-3-side">
+                        <img src="vinit-kumar-singh-xszn9xz3gcs-unsplash.jpg" alt="Beautiful Interior">
+                    </div>
+                </div>
+                <div>
+                    <h2>Our <span class="text-orange">Vision</span></h2>
+                    <p>At In Property Point, we have officially launched to bridge the gap between extraordinary spaces and those who seek them. We believe your property should be a reflection of your ambition and taste.</p>
+                    <br>
+                    <p>Located in the thriving hub of NX-1 Tower-1, Techzone 4, our team brings localized expertise wrapped in a premium, stress-free experience. Whether you are buying your dream home or securing a strategic commercial space, we are here to guide you.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="reveal expertise-section">
+            <div class="section-header">
+                <h2>How We <span class="text-orange">Work</span></h2>
+                <p class="subtitle">Designed to grow with your dream, not rebuilt every time your needs evolve.</p>
+            </div>
+            
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-icon">🛡️</div>
+                    <h4>Thorough Vetting</h4>
+                    <ul class="process-list">
+                        <li>We only deal with clean record properties</li>
+                        <li>Gather all details straight from the seller</li>
+                        <li>Comprehensive background checks</li>
+                    </ul>
+                </div>
+                
+                <div class="process-card">
+                    <div class="process-icon">🎯</div>
+                    <h4>Personalized Matching</h4>
+                    <ul class="process-list">
+                        <li>Understanding your exact needs and wants</li>
+                        <li>Shortlisting properties that match your vision</li>
+                        <li>Guided and informative site visits</li>
+                    </ul>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-icon">🤝</div>
+                    <h4>Client First</h4>
+                    <ul class="process-list">
+                        <li>100% Transparent pricing</li>
+                        <li>Full satisfaction is our primary motive</li>
+                        <li>Building long-lasting relationships</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="areas" class="reveal">
+            <div class="section-header">
+                <h2>Areas We <span class="text-orange">Deal In</span></h2>
+                <p class="subtitle">Prime locations for your next big investment or dream home.</p>
+            </div>
+
+            <div class="area-row">
+                <div class="area-text">
+                    <h3>1. Greater Noida</h3>
+                    <p>Known for its robust infrastructure, wide open green spaces, and meticulously planned sectors. Greater Noida is the perfect blend of peaceful residential living and booming commercial opportunities, offering high-end apartments, independent villas, and expansive commercial plots.</p>
+                </div>
+                <div class="area-image">
+                    <img src="bilal-ahmad-_ua9kZBbjuw-unsplash.jpg" alt="Greater Noida Real Estate">
+                </div>
+            </div>
+
+            <div class="area-row reverse">
+                <div class="area-text">
+                    <h3>2. Yamuna Expressway</h3>
+                    <p>The rapidly emerging hub of connectivity and mega-developments. With upcoming infrastructure projects, international airports nearby, and industrial corridors, the Yamuna Expressway is a hotspot for high-yield investments, sprawling farmlands, and futuristic commercial spaces.</p>
+                </div>
+                <div class="area-image">
+                    <img src="banner1.jpg" alt="Yamuna Expressway Real Estate">
+                </div>
+            </div>
+
+            <div class="area-row">
+                <div class="area-text">
+                    <h3>3. Greater Noida West</h3>
+                    <p>Often referred to as Noida Extension, this is one of the most vibrant, fast-growing residential hubs in the Delhi NCR region. Perfect for modern families, offering a wide variety of premium high-rise apartments, bustling shopping complexes, and seamless connectivity to the rest of the city.</p>
+                </div>
+                <div class="area-image">
+                    <img src="pexels-splendid-images-409199949-30407482.jpg" alt="Greater Noida West Real Estate">
+                </div>
+            </div>
+        </section>
+
+        <section id="featured" class="reveal expertise-section">
+            <div class="section-header">
+                <h2>Featured <span class="text-orange">Listings</span></h2>
+                <p>Handpicked premium properties ready for you.</p>
+            </div>
+            <div class="property-grid">
+                <div class="property-card">
+                    <img src="Villa.jpg" alt="Luxury Villa" class="property-img">
+                    <div class="property-details">
+                        <div class="property-price">₹ 2.5 Cr</div>
+                        <h3 class="property-title">Modern Luxury Villa</h3>
+                        <div class="property-meta">
+                            <span>🛏️ 4 Beds</span>
+                            <span>🚿 3 Baths</span>
+                            <span>📏 3,200 sqft</span>
+                        </div>
+                        <a href="#contact" class="btn" style="width: 100%; text-align: center;">Inquire Now</a>
+                    </div>
+                </div>
+                
+                <div class="property-card">
+                    <img src="Pent.jpg" alt="Premium Apartment" class="property-img">
+                    <div class="property-details">
+                        <div class="property-price">₹ 1.2 Cr</div>
+                        <h3 class="property-title">Skyview Penthouse</h3>
+                        <div class="property-meta">
+                            <span>🛏️ 3 Beds</span>
+                            <span>🚿 2 Baths</span>
+                            <span>📏 1,800 sqft</span>
+                        </div>
+                        <a href="#contact" class="btn" style="width: 100%; text-align: center;">Inquire Now</a>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <img src="office.jpg" alt="Commercial Space" class="property-img">
+                    <div class="property-details">
+                        <div class="property-price">₹ 85 L</div>
+                        <h3 class="property-title">Prime Office Workspace</h3>
+                        <div class="property-meta">
+                            <span>🏢 Commercial</span>
+                            <span>🚗 4 Parking</span>
+                            <span>📏 1,200 sqft</span>
+                        </div>
+                        <a href="#contact" class="btn" style="width: 100%; text-align: center;">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="expertise" class="reveal">
+            <div class="section-header">
+                <h2>Properties We <span class="text-orange">Deal In</span></h2>
+                <p class="subtitle">Comprehensive Real Estate Solutions — Sell • Purchase • Renting<br>Serving clients all across Delhi NCR.</p>
+            </div>
+            
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <div class="expertise-icon">🏢</div>
+                    <h4>Apartments & Flats</h4>
+                    <p>Premium 2BHK, 3BHK, and luxury residential apartments for modern living.</p>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-icon">🗺️</div>
+                    <h4>Plots & Land</h4>
+                    <p>High-value residential and commercial plots ready for your vision and investment.</p>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-icon">🏭</div>
+                    <h4>Godowns & Commercial</h4>
+                    <p>Spacious godowns, warehouses, and prime office spaces to scale your business.</p>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-icon">🌾</div>
+                    <h4>Farms & Agricultural</h4>
+                    <p>Expansive farmlands and scenic farmhouses perfect for retreats or cultivation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials reveal expertise-section">
+            <div class="section-header">
+                <h2>Client <span class="text-orange">Stories</span></h2>
+                <p>Hear from those who have already found their point of perfection.</p>
+            </div>
+            
+            <div class="testimonial-container">
+                <div class="testimonial-track">
+                    
+                    <div class="test-card">
+                        <div class="avatar-frame">
+                            <img src="female2.webp" alt="Priya Sharma">
+                        </div>
+                        <p>"The aesthetic and attention to detail at In Property Point are unmatched. They understood exactly what I was looking for and delivered."</p>
+                        <h4>Priya Sharma</h4>
+                        <small>Homeowner</small>
+                    </div>
+
+                    <div class="test-card">
+                        <div class="avatar-frame">
+                            <img src="men3.jpg" alt="Rajesh Kumar">
+                        </div>
+                        <p>"Securing our new commercial space was effortless. Their launch brings a much-needed tier of professionalism to the Greater Noida market."</p>
+                        <h4>Rajesh Kumar</h4>
+                        <small>Business Director</small>
+                    </div>
+
+                    <div class="test-card">
+                        <div class="avatar-frame">
+                            <img src="men2.jpg" alt="Amit Patel">
+                        </div>
+                        <p>"A brilliant platform. The transparency, the premium listings, and the ease of communication make them my go-to for future investments."</p>
+                        <h4>Amit Patel</h4>
+                        <small>Property Investor</small>
+                    </div>
+
+                    <div class="test-card">
+                        <div class="avatar-frame">
+                            <img src="female1.jpg" alt="Sneha Desai">
+                        </div>
+                        <p>"I was amazed by the thorough vetting process. I felt completely secure knowing they had done comprehensive background checks."</p>
+                        <h4>Sneha Desai</h4>
+                        <small>First-time Buyer</small>
+                    </div>
+
+                    <div class="test-card">
+                        <div class="avatar-frame">
+                            <img src="men1.png" alt="Vikram Singh">
+                        </div>
+                        <p>"Their transparent pricing model is a breath of fresh air. What you see is exactly what you get. Highly recommend their services."</p>
+                        <h4>Vikram Singh</h4>
+                        <small>Real Estate Developer</small>
+                    </div>
+
+                    <div class="test-card">
+                        <div class="avatar-frame">
+                            <img src="female2.webp" alt="Priya Sharma">
+                        </div>
+                        <p>"The aesthetic and attention to detail at In Property Point are unmatched. They understood exactly what I was looking for and delivered."</p>
+                        <h4>Priya Sharma</h4>
+                        <small>Homeowner</small>
+                    </div>
+
+                    <div class="test-card">
+                        <div class="avatar-frame">
+                            <img src="men3.jpg" alt="Rajesh Kumar">
+                        </div>
+                        <p>"Securing our new commercial space was effortless. Their launch brings a much-needed tier of professionalism to the Greater Noida market."</p>
+                        <h4>Rajesh Kumar</h4>
+                        <small>Business Director</small>
+                    </div>
+
+                    <div class="test-card">
+                        <div class="avatar-frame">
+                            <img src="men2.jpg" alt="Amit Patel">
+                        </div>
+                        <p>"A brilliant platform. The transparency, the premium listings, and the ease of communication make them my go-to for future investments."</p>
+                        <h4>Amit Patel</h4>
+                        <small>Property Investor</small>
+                    </div>
+
+                    <div class="test-card">
+                        <div class="avatar-frame">
+                            <img src="female1.jpg" alt="Sneha Desai">
+                        </div>
+                        <p>"I was amazed by the thorough vetting process. I felt completely secure knowing they had done comprehensive background checks."</p>
+                        <h4>Sneha Desai</h4>
+                        <small>First-time Buyer</small>
+                    </div>
+
+                    <div class="test-card">
+                        <div class="avatar-frame">
+                            <img src="men1.png" alt="Vikram Singh">
+                        </div>
+                        <p>"Their transparent pricing model is a breath of fresh air. What you see is exactly what you get. Highly recommend their services."</p>
+                        <h4>Vikram Singh</h4>
+                        <small>Real Estate Developer</small>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="reveal">
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    
+                    <div class="info-item">
+                        <span>Call Us</span>
+                        <a href="tel:+919311911740">+91 93119 11740</a><br>
+                        <a href="tel:+919899472555" style="margin-top: 5px; display: inline-block;">+91 98994 72555</a>
+                    </div>
+
+                    <div class="info-item">
+                        <span>Email Us</span>
+                        <a href="mailto:contact@inpropertypoint.com">contact@inpropertypoint.com</a>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span>Visit Us</span>
+                        <p>NX-1 Tower-1,UG-24<br>Tech Zone IV, <br>Greater Noida West, Uttar Pradesh</p>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span>Working Hours</span>
+                        <p>Thu - Tue | 10:00 AM - 08:00 PM<br>Wednesday | Closed</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form action="https://formspree.io/f/xreowvwo" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" class="form-control" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Send</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="map-box">
+                <iframe src="https://maps.google.com/maps?q=NX-1,+Gaur+Chowk,+Plot+No.+17,+Tech+Zone+IV,+Amrapali+Dream+Valley,+Greater+Noida,+Uttar+Pradesh+201318&t=k&z=16&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-logo">
+            <span class="text-orange">IN</span> <span class="main-title" style="color: var(--text-dark); transition: color 0.4s ease;">PROPERTY POINT</span>
+        </div>
+        <p class="footer-service-area">Real estate services across Greater Noida, Yamuna Expressway, Greater Noida West and nearby areas.</p>
+        <p>© 2026 In Property Point. Made with ♥️ in India | Priyansh & Team</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 100;
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); 
+
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const body = document.body;
+
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                body.classList.add('dark-mode');
+                themeToggleBtn.textContent = '☀️';
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                    themeToggleBtn.textContent = '☀️';
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                    themeToggleBtn.textContent = '🌙';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
